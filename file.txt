@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 hello
 This is new
+=======
+hello hi
+>>>>>>> 2b49a40c4db7b271d4466878a58723eea92b9c4c
