@@ -1,0 +1,11 @@
+<?php
+
+define('BASE_PATH', dirname(__DIR__));
+
+require_once BASE_PATH . '/vendor/autoload.php';
+
+use App\Foundation\Application;
+
+$app = new Application();
+
+$app->run();
