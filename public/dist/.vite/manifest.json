@@ -1,0 +1,14 @@
+{
+  "resources/js/editor.js": {
+    "file": "assets/editor-COt2-His.js",
+    "name": "editor",
+    "src": "resources/js/editor.js",
+    "isEntry": true
+  },
+  "resources/js/main.js": {
+    "file": "assets/main-CK1NTryB.js",
+    "name": "main",
+    "src": "resources/js/main.js",
+    "isEntry": true
+  }
+}

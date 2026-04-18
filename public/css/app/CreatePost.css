@@ -1,0 +1,84 @@
+button {
+  padding: var(--button-height);
+  border: var(--border-radius-xs) solid #ccc;
+  background-color: var(--bg-white);
+  cursor: pointer;
+}
+
+button.is-active {
+  background-color: var(--bg-dark);
+  color: var(--bg-white);
+  font-weight: bold;
+
+}
+
+button.active {
+  background-color: #000;
+  color: #fff;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Dynamic Title Input (Matches cursor to placeholder when empty) */
+.placeholder-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.title-input {
+  border: none;
+  outline: none;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 20px;
+  background: transparent;
+  transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 48px;
+  /* Large when empty to match caret and placeholder */
+}
+
+/* Shrink font and caret as soon as typing begins */
+.title-input:not(:placeholder-shown) {
+  font-size: 24px;
+}
+
+.title-input::placeholder {
+  font-size: 48px;
+  color: #ccc;
+  font-weight: bold;
+  transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* Editor Dynamic Sizing */
+.ProseMirror p {
+  font-size: 18px;
+  /* Standard text size */
+  transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ProseMirror p.is-editor-empty:first-child {
+  font-size: 32px;
+  /* Large placeholder and caret */
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #888;
+  float: left;
+  height: 0;
+  pointer-events: none;
+  outline: none;
+  border: none;
+  font-size: 32px;
+  /* Large placeholder for editor */
+  transition: font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure editor has a minimum height */
+.ProseMirror {
+  min-height: 100px;
+}

@@ -1,20 +1,27 @@
 {
-    "name": "hancy/blogify",
-    "description": "College Project - Custom PHP Blog",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Sulav Acharya"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {},
-  "autoload":{
-    "psr-4":{
-      "App\\":"app/"
+  "name": "hancy/blogify",
+  "description": "College Project - Custom PHP Blog",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Sulav Acharya"
     }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php-flasher/php-pack": "^1.1",
+    "league/commonmark": "^2.8",
+    "vlucas/phpdotenv": "^5.6"
   },
-  "scripts":{
-    "serve":"php -S localhost:8001 -t public"
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "app/helpers.php"
+    ]
+  },
+  "scripts": {
+    "serve": "php -S 127.0.0.1:8000 -t public server.php"
   }
 }

@@ -1,0 +1,99 @@
+body {
+  font-family: var(--font-family);
+}
+
+.site-header {
+  background-color: var(--bg-white);
+  /*Inner Width,Height space room,increase if you want large header*/
+  padding: var(--space-sm);
+  /*Stick to headers*/
+  position: sticky;
+  /* Screen to Face*/
+  z-index: 100;
+
+}
+
+.logo {
+  text-decoration: none;
+  color: var(--primary-text);
+  /*size of font*/
+  font-size: var(--font-md);
+  /*weight of font*/
+  font-weight: var(--font-bold);
+  /*space between letter*/
+  letter-spacing: var(--space-xxs);
+  transform: translate(-20%);
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  /*Prevent headers to stretching too far on wide screen*/
+  max-width: var(--container-max-width);
+  /*Automatically center the container*/
+  /*Prevent text from touching the edge of screen*/
+  padding: 0 var(--space-xll);
+
+  box-sizing: border-box;
+
+}
+
+.inner-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+nav {
+
+  display: contents;
+  /*
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+  /*Tells the nav to take up all remaining room*/
+
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+  list-style: none;
+
+}
+
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  /*Push the content automatically to right*/
+  margin-left: auto;
+
+
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--primary-text);
+  font-weight: var(--font-medium);
+  font-size: var(--font-sm);
+
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  /*
+  background-color: #000000;
+  color: #ffffff;
+*/
+  background-color: var(--bg-dark);
+  color: var(--secondary-text);
+
+  border-radius: var(--border-radius-xl);
+  /* padding top increase the length of button and padding left increase the breadth*/
+  padding: var(--button-height);
+
+}

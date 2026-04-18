@@ -1,0 +1,63 @@
+.hero {
+  /*Adds generous breathing room at the top and bottom*/
+  /*padding: 5rem 0 4rem 0;*/
+  padding-top: var(--padding-6xl);
+  padding-right: 0;
+  padding-bottom: var(--padding-4xl);
+  padding-left: 0;
+  background-color: var(--bg-white);
+}
+
+.hero-container {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.announcement-badge {
+  display: inline-block;
+  background-color: #fce83a;
+
+  color: var(--primary-text);
+  padding: var(--button-height);
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  margin-bottom: var(--spacing-lg);
+
+}
+
+.hero-title {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: var(--font-bold);
+  color: var(--primary-text);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0;
+  max-width: var(--container-min-width);
+}
+
+/*
+.hero-media {
+  margin: 0 0 5rem 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+*/
+.hero-intro {
+  max-width: var(--container-min-width);
+  margin: 0;
+}
+
+.hero-head {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: var(--font-semibold);
+  color: var(--primary-text);
+  line-height: 1.3;
+  margin: 0 0 1.5rem 0;
+}

@@ -1,0 +1,9 @@
+entryPoints:
+  websecure:
+    address: ":443"
+
+providers:
+  file:
+    filename: "traefik/dynamic.yml"
+api: 
+  dashboard: true

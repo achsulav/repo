@@ -1,0 +1,5 @@
+tls:
+  certificates:
+    -certFile: /certs/
+    _wildcard.blogify.dev.pem
+  keyFile: /certs/_wildcard.blogify.dev-key.pem

@@ -1,0 +1,18 @@
+tls:
+  certificates:
+    - certFile: "traefik/_wildcard.blogify.dev+1.pem"
+      keyFile: "traefik/_wildcard.blogify.dev+1-key.pem"
+
+http:
+  routers:
+    blog:
+      rule: "Host(`blogify.dev`) || HostRegexp(`{subdomain:[a-z0-9-]+}.blogify.dev`)"
+      entryPoints:
+        - websecure
+      service: blog-service
+      tls: {}
+  services:
+    blog-service:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:8000"

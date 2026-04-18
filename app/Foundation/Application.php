@@ -1,22 +1,99 @@
 <?php
-
 namespace App\Foundation;
-
+use App\Foundation\Database;
+use App\Foundation\Router;
+use App\Foundation\Session;
 class Application
 {
+    public static Application $app;
     protected Router $router;
+    public Session $session;
+    public Database $db;
 
     public function __construct()
     {
-        $this->router = new Router();
+      if (file_exists(__DIR__ . '/../../.env')) {
+          $dotenv = \Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../../');
+          $dotenv->safeLoad();
+      }
+
+      self::$app = $this;
+      $this->session = new Session();
+      $this->router = new Router();
+      $config = require __DIR__ . '/../Config/database.php';
+      $this->db = new Database($config);
+      
+      $flasherManager = \App\Foundation\FlasherManager::getInstance();
+      $flasherManager::addPlugin(new \Flasher\Toastr\Prime\ToastrPlugin());
+      $flasherManager::addPlugin(new \Flasher\SweetAlert\Prime\SweetAlertPlugin());
+      
+      \Flasher\Prime\Container\FlasherContainer::init(new \App\Foundation\FlasherContainerWrapper());
+      $this->registerRoutes();
+    }
+    protected  function registerRoutes():void
+    {
+
         // Register routes here
+
+        $this->router->get('/login','AuthController@showLogin',['guest']);
+        $this->router->post('/login','AuthController@Login',['guest']);
+
+        $this->router->get('/register','AuthController@showRegister');
+        $this->router->post('/register','AuthController@Register');
+
+        $this->router->get('/logout','AuthController@Logout',['auth']);
         $this->router->get('/', 'PageController@home');
-        $this->router->get('/login', 'PageController@login');
         $this->router->get('/test','PageController@testRedirect');
+        $this->router->get('/create-user','PageController@createUser',['auth']);
+
+        $this->router->get('/dashboard','DashboardController@index',['auth']);
+
+        $this->router->get('/create-post','PostController@create',['auth']);
+        $this->router->post('/store-post','PostController@store',['auth']);
+
+        $this->router->get('/blog','PostController@index');
+        $this->router->get('/{slug}','PostController@show');
+        $this->router->post('/upload-image','PostController@uploadImage',['auth']);
+
+        $this->router->get('/post/edit/{id}', 'PostController@edit',['auth']);
+        $this->router->post('/post/update/{id}', 'PostController@update',['auth']);
+
+        $this->router->post('/post/delete','PostController@delete',['auth']);
+
+
+        // Note: /{slug} is already registered above, which will conflict with /{username}.
+        // We will handle this in PostController@show by checking for users if a post is not found.
+        // $this->router->get('/{username}','UserController@profile');
+
+        $this->router->post('/comment/store','CommentController@store',['auth']);
+        $this->router->post('/comment/update','CommentController@update',['auth']);
+        $this->router->post('/comment/delete','CommentController@delete',['auth']);
+
+    }
+
+    public function getSubdomain(): ?string
+    {
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+        $host = explode(':', $host)[0];
+
+        // Ignore IP addresses and localhost
+        if (filter_var($host, FILTER_VALIDATE_IP) || $host === 'localhost') {
+            return null;
+        }
+
+        $parts = explode('.', $host);
+        
+        // If host is user.blogify.dev -> parts is ['user', 'blogify', 'dev']
+        // We only return a subdomain if there are at least 3 parts.
+        if (count($parts) >= 3) {
+            return $parts[0];
+        }
+
+        return null;
     }
 
 
-    public function run()
+    public function run():void
     {
         $this->router->resolve();
     }

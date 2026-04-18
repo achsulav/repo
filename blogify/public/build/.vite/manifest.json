@@ -1,0 +1,24 @@
+{
+  "_chunk-D3Jd9kjA.js": {
+    "file": "assets/chunk-D3Jd9kjA.js",
+    "name": "chunk"
+  },
+  "js/editor.js": {
+    "file": "assets/editor-DlYYong7.js",
+    "name": "editor",
+    "src": "js/editor.js",
+    "isEntry": true,
+    "imports": [
+      "_chunk-D3Jd9kjA.js"
+    ]
+  },
+  "js/main.js": {
+    "file": "assets/main-C3yi2EEg.js",
+    "name": "main",
+    "src": "js/main.js",
+    "isEntry": true,
+    "imports": [
+      "_chunk-D3Jd9kjA.js"
+    ]
+  }
+}

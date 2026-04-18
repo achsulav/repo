@@ -1,0 +1,27 @@
+
+#environment
+.env
+.env.*
+
+#Logs
+*.log
+
+# Vendor 
+vendor/
+
+#Node mofules
+node_modules/
+
+#OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+#SSL / mkcert
+*.pem
+
+# Nginx / system files
+nginx.conf
