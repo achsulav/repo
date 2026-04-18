@@ -2,20 +2,23 @@
 
 Blogify is a custom PHP blog platform with support for subdomains, markdown editing, and a powerful dashboard.
 
+## Minimum System Prerequisites (Install these on your NEW OS)
+
+To run this project with a single command, you only need to install these three things on your new system:
+
+1. **Docker & Docker Compose**: This handles the server, database, and background processes automatically.
+2. **mkcert**: This is needed for local HTTPS support.
+3. **git**: To clone the repository from GitHub.
+
+---
+
 ## Quick Start (The One-Command Setup)
 
-If you have Docker and `mkcert` installed, you can set up the entire project with a single command:
+If you have the prerequisites above, you can set up everything with one command:
 
 ```bash
 ./setup.sh
 ```
-
----
-
-## Prerequisites
-
-- **Docker & Docker Compose** (Recommended)
-- **Local Setup (Alternative)**: PHP 8.x, MySQL, Node.js (v20+), Composer, and `mkcert`.
 
 ---
 
