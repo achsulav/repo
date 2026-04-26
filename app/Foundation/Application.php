@@ -23,17 +23,15 @@ class Application
       $config = require __DIR__ . '/../Config/database.php';
       $this->db = new Database($config);
       
-      $flasherManager = \App\Foundation\FlasherManager::getInstance();
-      $flasherManager::addPlugin(new \Flasher\Toastr\Prime\ToastrPlugin());
-      $flasherManager::addPlugin(new \Flasher\SweetAlert\Prime\SweetAlertPlugin());
-      
-      \Flasher\Prime\Container\FlasherContainer::init(new \App\Foundation\FlasherContainerWrapper());
       $this->registerRoutes();
     }
     protected  function registerRoutes():void
     {
 
         // Register routes here
+        // ShowLogin => To render the Page
+        // Login=> To perform login action
+        
 
         $this->router->get('/login','AuthController@showLogin',['guest']);
         $this->router->post('/login','AuthController@Login',['guest']);

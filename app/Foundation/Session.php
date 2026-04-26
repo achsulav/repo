@@ -36,6 +36,20 @@ public function get(string $key){
 public function remove(string $key):void{
   unset($_SESSION[$key]);
 }
+public function setFlash(string $type, string $message): void {
+    $_SESSION['flash'][$type] = $message;
+}
+
+public function getFlash(string $type) {
+    $message = $_SESSION['flash'][$type] ?? null;
+    unset($_SESSION['flash'][$type]);
+    return $message;
+}
+
+public function hasFlash(string $type): bool {
+    return isset($_SESSION['flash'][$type]);
+}
+
 public function destroy():void{
   session_destroy();
 }

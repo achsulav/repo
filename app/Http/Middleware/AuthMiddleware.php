@@ -16,7 +16,7 @@ class AuthMiddleware implements Middleware{
 
     if ($subdomain && $subdomain !== 'blogify' && $subdomain !== 'www') {
         if ($subdomain !== $loggedInUsername) {
-            flash()->addError('Unauthorized access to this subdomain.');
+            Application::$app->session->setFlash('error', 'Unauthorized access to this subdomain.');
             header("Location: http://{$loggedInUsername}.blogify.dev/dashboard");
             exit;
         }

@@ -1,1 +1,0 @@
-import{t as e}from"./chunk-D3Jd9kjA.js";var t=e((()=>{console.log(`Vite Working`)}));export default t();

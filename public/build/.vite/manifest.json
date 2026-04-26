@@ -1,0 +1,17 @@
+{
+  "resources/js/editor.js": {
+    "file": "assets/editor-BDU9JajF.js",
+    "name": "editor",
+    "src": "resources/js/editor.js",
+    "isEntry": true
+  },
+  "resources/js/main.js": {
+    "file": "assets/main-4hLMgn7U.js",
+    "name": "main",
+    "src": "resources/js/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/main-dRmkCgR0.css"
+    ]
+  }
+}

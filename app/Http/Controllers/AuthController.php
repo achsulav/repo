@@ -2,8 +2,6 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Foundation\Application;
-use Flasher\Prime\Flasher;
-
 class AuthController extends BaseController
 {
   public function showLogin(){
@@ -22,28 +20,28 @@ class AuthController extends BaseController
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($email) || empty($name) || empty($password)) {
-      flash()->addError('All fields are required');
+      Application::$app->session->setFlash('error', 'All fields are required');
       $this->redirect('/register');
       return;
     }
 
     $existingEmail = $userModel->findByEmail($email);
     if($existingEmail){
-      flash()->using('toastr')->addError('Email already exists');
+      Application::$app->session->setFlash('error', 'Email already exists');
       $this->redirect('/register');
       return;
     }
 
     $existingUsername = $userModel->findByUsername($username);
     if ($existingUsername) {
-      flash()->using('toastr')->addError('Username already exists');
+      Application::$app->session->setFlash('error', 'Username already exists');
       $this->redirect('/register');
       return;
     }
 
     $userModel->create($name, $username, $email, $password);
 
-    flash()->addSuccess('Registration successful. Please login.');
+    Application::$app->session->setFlash('success', 'Registration successful. Please login.');
     $this->redirect('/login');
 
   }
@@ -51,14 +49,14 @@ class AuthController extends BaseController
     $userModel = new User(Application::$app->db);
     $user = $userModel->findByEmail($_POST['email']);
     if(!$user || !password_verify($_POST['password'],$user['password'])){
-      flash()->addError('Invalid credentials');
+      Application::$app->session->setFlash('error', 'Invalid credentials');
       $this->redirect('/login');
       return;
     }
     Application::$app->session->set('user',$user['id']);
     Application::$app->session->set('user_name',$user['name']);
     Application::$app->session->set('username',$user['username']);
-    flash()->addSuccess('Login successful');
+    Application::$app->session->setFlash('success', 'Login successful');
     
     // Redirect to user's subdomain
     $username = $user['username'];
@@ -69,7 +67,7 @@ class AuthController extends BaseController
     Application::$app->session->remove('user');
     Application::$app->session->remove('user_name');
     Application::$app->session->remove('username');
-    flash()->addSuccess('Logged out successfully');
+    Application::$app->session->setFlash('success', 'Logged out successfully');
     $this->redirect('http://blogify.dev/');
   }
 }

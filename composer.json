@@ -9,7 +9,6 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php-flasher/php-pack": "^1.1",
     "league/commonmark": "^2.8",
     "vlucas/phpdotenv": "^5.6"
   },

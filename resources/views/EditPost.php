@@ -10,6 +10,8 @@
 <?php endforeach;?>
 </select>
 <div>
+<button type="button" id="import_md_btn">Import Markdown</button>
+<input type="file" id="md_file_input" accept=".md,text/markdown" style="display:none;">
 <button type="button" id="undo_btn">Undo</button>
 <button type="button" id="redo_btn">Redo</button>
 

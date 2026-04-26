@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use App\Foundation\Application;
-use Flasher\Prime\Flasher;
 class PostController extends BaseController
 {
   public function create()
@@ -118,11 +117,11 @@ class PostController extends BaseController
       $html,
  ]);
     if(!$stmt->rowCount()){
-      flash()->using('sweetalert')->addError('Failed to create post');
+      Application::$app->session->setFlash('error', 'Failed to create post');
       $this->redirect('/create-post');
       return;
     }
-flash()->using('sweetalert')->addSuccess('Post created successfully');
+Application::$app->session->setFlash('success', 'Post created successfully');
 $this->redirect('/dashboard');
   }
 
@@ -231,7 +230,7 @@ $this->redirect('/dashboard');
     $plainText = trim(strip_tags($content));
 
     if(empty($title) || empty($plainText)){
-      flash()->using('sweetalert')->addError('Title and content are required');     
+      Application::$app->session->setFlash('error', 'Title and content are required');     
       $this->redirect("/post/edit/$id");
       return;
     }
@@ -262,14 +261,14 @@ $this->redirect('/dashboard');
       ':id'=>$id,
       ':user_id'=>$userId
     ]);
-    flash()->using('sweetalert')->addSuccess('Post updated Successfully');
+    Application::$app->session->setFlash('success', 'Post updated Successfully');
     $this->redirect('/dashboard');
   }
   public function delete(){
     $postId = $_POST['post_id'] ?? null;
     $userId = Application::$app->session->get('user');
     if(!$postId){
-      flash()->using('sweetalert')->addError('Invalid request');
+      Application::$app->session->setFlash('error', 'Invalid request');
       $this->redirect('/dashboard');
       return;
     }
@@ -293,7 +292,7 @@ $this->redirect('/dashboard');
       ':id'=>$postId,
       ':user_id'=>$userId
     ]);
-    flash()->using('sweetalert')->success('Post delete Successfully');
+    Application::$app->session->setFlash('success', 'Post delete Successfully');
     $this->redirect('/dashboard');
   }
   
@@ -386,5 +385,13 @@ $this->redirect('/dashboard');
       $counter++;
     }
     return $slug;
+  }
+
+  private function uploadError(string $message)
+  {
+    header('Content-Type: application/json');
+    http_response_code(400);
+    echo json_encode(['error' => $message]);
+    exit;
   }
 }
