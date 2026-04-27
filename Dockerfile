@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production PHP + Nginx Environment
-FROM php:8.2-fpm-slim
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
