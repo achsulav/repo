@@ -30,7 +30,7 @@ services:
           name: blogify-db
           property: password
     # Explicitly clear any dashboard overrides
-    startCommand: null
+    startCommand: entrypoint.sh
     # Run migrations before starting the new version
     releaseCommand: php migrate.php && php seed_categories.php
 
