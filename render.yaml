@@ -32,7 +32,7 @@ services:
     # Explicitly clear any dashboard overrides
     startCommand: null
     # Run migrations before starting the new version
-    releaseCommand: php migrate.php
+    releaseCommand: php migrate.php && php seed_categories.php
 
 databases:
   - name: blogify-db

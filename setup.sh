@@ -13,17 +13,37 @@ else
     echo "✅ SSL certificates already exist."
 fi
 
-# 2. Start Docker Containers
+# 2. Check for Port 80 Conflict
+if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null ; then
+    echo "⚠️  Error: Port 80 is already in use by another process (likely local Nginx)."
+    echo "👉 Run 'sudo systemctl stop nginx' to fix this."
+    exit 1
+fi
+
+# 3. Start Docker Containers
 echo "🐳 Starting Docker containers..."
 docker-compose up -d
 
-# 3. Wait for DB to be ready
+# 4. Wait for DB to be ready (Dynamic Wait)
 echo "⏳ Waiting for database to be ready..."
-sleep 10
+MAX_RETRIES=30
+COUNT=0
+until docker exec blogify_php php -r "new PDO('mysql:host=mysql;dbname=blogify', 'phpuser', 'root');" > /dev/null 2>&1 || [ $COUNT -eq $MAX_RETRIES ]; do
+    sleep 2
+    COUNT=$((COUNT + 1))
+    echo "Retrying database connection... ($COUNT/$MAX_RETRIES)"
+done
 
-# 4. Run Migrations and Seeds
+if [ $COUNT -eq $MAX_RETRIES ]; then
+    echo "❌ Database took too long to start. Check 'docker logs blogify-mysql-1'"
+    exit 1
+fi
+
+echo "✅ Database is ready!"
+
+# 5. Run Migrations and Seeds
 echo "📂 Setting up database schema..."
-docker exec -it blogify_php php migrate.php
-docker exec -it blogify_php php seed_categories.php
+docker exec blogify_php php migrate.php
+docker exec blogify_php php seed_categories.php
 
 echo "✨ Setup complete! Access your project at https://blogify.dev or http://localhost"
