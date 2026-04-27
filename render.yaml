@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: blogify
+    env: docker
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 80
+      - key: DB_HOST
+        fromDatabase:
+          name: blogify-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: blogify-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: blogify-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: blogify-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: blogify-db
+          property: password
+    # Run migrations before starting the new version
+    releaseCommand: php migrate.php
+
+databases:
+  - name: blogify-db
+    databaseName: blogify
+    user: blogify_user
+    plan: free
+    region: singapore
