@@ -39,11 +39,11 @@ COPY docker/nginx/render.conf /etc/nginx/sites-available/default
 # Ensure storage and uploads are writable (if they exist)
 RUN chmod -R 775 /var/www/public/uploads || true
 
+# Copy entrypoint script
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Start script
 EXPOSE 80
 
-CMD sh -c "\
-envsubst '\$PORT' < /etc/nginx/sites-available/default > /etc/nginx/default.tmp && \
-mv /etc/nginx/default.tmp /etc/nginx/sites-available/default && \
-php-fpm -D && \
-nginx -g 'daemon off;'"
+ENTRYPOINT ["entrypoint.sh"]
