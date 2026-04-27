@@ -29,6 +29,8 @@ services:
         fromDatabase:
           name: blogify-db
           property: password
+    # Explicitly clear any dashboard overrides
+    startCommand: null
     # Run migrations before starting the new version
     releaseCommand: php migrate.php
 

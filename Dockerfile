@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Fix path for php-fpm to match potential dashboard overrides
+RUN ln -s /usr/local/sbin/php-fpm /usr/sbin/php-fpm
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
