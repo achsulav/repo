@@ -10,33 +10,16 @@ services:
       - key: PORT
         value: 80
       - key: DB_HOST
-        fromDatabase:
-          name: blogify-db
-          property: host
+        sync: false
       - key: DB_PORT
-        fromDatabase:
-          name: blogify-db
-          property: port
+        sync: false
       - key: DB_DATABASE
-        fromDatabase:
-          name: blogify-db
-          property: database
+        sync: false
       - key: DB_USERNAME
-        fromDatabase:
-          name: blogify-db
-          property: user
+        sync: false
       - key: DB_PASSWORD
-        fromDatabase:
-          name: blogify-db
-          property: password
+        sync: false
     # Explicitly clear any dashboard overrides
     startCommand: entrypoint.sh
     # Run migrations before starting the new version
     releaseCommand: php migrate.php && php seed_categories.php
-
-databases:
-  - name: blogify-db
-    databaseName: blogify
-    user: blogify_user
-    plan: free
-    region: singapore
